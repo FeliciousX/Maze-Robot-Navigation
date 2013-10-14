@@ -6,7 +6,12 @@
  * Execution:
  */
 public class JaegarKaiju extends Robot {
-    public JaegarKaiju(int row, int col) {
-        super(row, col);
+    public JaegarKaiju(int row, int col, boolean wall[][]) {
+        super(row, col, wall);
+    }
+
+    @Override
+    protected boolean solve() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

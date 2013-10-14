@@ -6,7 +6,12 @@
  * Execution:
  */
 public class AStarKaiju extends Robot {
-    public AStarKaiju(int row, int col) {
-        super(row, col);
+    public AStarKaiju(int row, int col, boolean wall[][]) {
+        super(row, col, wall);
+    }
+
+    @Override
+    protected boolean solve() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
