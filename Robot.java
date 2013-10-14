@@ -12,8 +12,9 @@ public abstract class Robot {
     protected ArrayList<Node> expanded; // stores expanded nodes
     protected int R, C;                 // dimension of the maze is known to the robot
     protected boolean wall[][];         // environment of the maze is known to the robot
-    protected boolean visited[][];
-    protected ArrayList<Coordinate> solution;
+    protected boolean visited[][];      // robot remembers visited nodes
+    protected ArrayList<Coordinate> solution; // solution path in coordinates
+    protected Coordinate goal;
 
     protected class Node {
         Coordinate position; // the position of the node
@@ -29,8 +30,9 @@ public abstract class Robot {
         this.R = R;
         this.C = C;
         this.wall = wall;
-        this.visited = new boolean[R][C];
+        this.visited = new boolean[this.R][this.C];
         this.current = new Node(1, 0); // Robot always starts from top left of the maze
+        this.goal = new Coordinate(this.R - 2, this.C - 1);
         this.open = new ArrayList<Node>();
         this.expanded = new ArrayList<Node>();
         this.open.add(this.current);
@@ -40,6 +42,16 @@ public abstract class Robot {
                 visited[i][j] = false;
             }
         }
+
+        visited[1][0] = true;
+    }
+
+    protected void populateSolution() {
+        this.solution = new ArrayList<Coordinate>();
+        while(this.current != null) {
+            this.solution.add(0, this.current.position);
+            this.current = this.current.parent;
+        }
     }
 
     public ArrayList<Coordinate> getSolution() {
@@ -47,4 +59,5 @@ public abstract class Robot {
     }
 
     protected abstract boolean solve();
+    protected abstract void expand();
 }

@@ -22,4 +22,14 @@ public class Coordinate {
     public int getCol() {
         return col;
     }
+
+    public boolean equal(Coordinate obj) {
+        if (this.row == obj.row && this.col == obj.col) return true;
+        else return false;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.row + ", " + this.col + ")";
+    }
 }

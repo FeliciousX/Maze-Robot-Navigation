@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 /**
- * Name:
- * User: FeliciousX
+ * Name: Churchill Lee, Christine Tay
  * Date: 10/14/13
  * Time: 6:09 PM
- * Execution:
+ *
+ * BFSKaiju class implements the Breadth First Search algorithm
+ * to find the solution path to the goal.
  */
 public class BFSKaiju extends  Robot {
     public BFSKaiju(int row, int col, boolean wall[][]) {
@@ -15,15 +16,14 @@ public class BFSKaiju extends  Robot {
     @Override
     protected boolean solve() {
         while(! this.open.isEmpty()) { // while there's still open nodes
-
-            // pop the first node from the ArrayList
+            // pops the first node from the ArrayList (FIFO)
             Node temp = this.open.get(0);
             this.open.remove(0);
 
-            this.current = temp;
+            this.current = temp; // move robot
 
             // check if reach goal!
-            if (this.current.position.getRow() == this.R - 2 && this.current.position.getCol() == this.C - 1) {
+            if (this.current.position.equal(this.goal)) {
                 this.populateSolution();
                 return true;
             }
@@ -36,7 +36,8 @@ public class BFSKaiju extends  Robot {
         return false;
     }
 
-    private void expand() {
+    @Override
+    protected void expand() {
         int r = this.current.position.getRow();
         int c = this.current.position.getCol();
 
@@ -70,14 +71,6 @@ public class BFSKaiju extends  Robot {
             Node child = new Node(r, c);
             child.parent = this.current;
             this.open.add(child);
-        }
-    }
-
-    private void populateSolution() {
-        this.solution = new ArrayList<Coordinate>();
-        while(this.current.parent != null) {
-            this.solution.add(0, this.current.position);
-            this.current = this.current.parent;
         }
     }
 }

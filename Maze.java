@@ -19,6 +19,7 @@ public class Maze {
     private boolean wall[][];
     private Robot kaiju;
     private int row, col; // maze dimension
+    private MazeView mazeView;
 
     public Maze(int option, String fileName) {
         this.init(fileName);
@@ -31,20 +32,22 @@ public class Maze {
                 this.kaiju = new DFSKaiju(this.row, this.col, this.wall);
                 break;
             case BEST_FIRST:
-                this.kaiju = new BestFirstKaiju(this.row, this.col, this.wall);
+                this.kaiju = new BestKaiju(this.row, this.col, this.wall);
                 break;
             case A_STAR:
-                this.kaiju = new AStarKaiju(this.row, this.col, this.wall);
+                this.kaiju = new ASearchKaiju(this.row, this.col, this.wall);
                 break;
             case HILL_CLIMBING:
-                this.kaiju = new HillClimbingKaiju(this.row, this.col, this.wall);
+                this.kaiju = new HCKaiju(this.row, this.col, this.wall);
                 break;
             case JAEGER_SEARCH:
-                this.kaiju = new JaegarKaiju(this.row, this.col, this.wall);
+                this.kaiju = new CSKaiju(this.row, this.col, this.wall);
                 break;
             default:
                 showMenu();
         }
+
+        this.mazeView = new MazeView();
     }
 
     private void init(String fileName) {
@@ -79,29 +82,46 @@ public class Maze {
         }
     }
 
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public ArrayList<Coordinate> getSolution() {
+        return this.kaiju.getSolution();
+    }
+
+    public boolean[][] getWall() {
+        return wall;
+    }
+
     public void solve() {
         if (this.kaiju.solve()) {
             // TODO: draw solution on screen
             StdOut.println("SOLUTION FOUND!");
             ArrayList<Coordinate> solution = this.kaiju.getSolution();
 
-            /*for (Coordinate c : solution) {
-                StdOut.println("(" + c.getRow() + ", " + c.getCol() + ")");
-            }*/
-
-
+            mazeView.draw(this);
         }
         else {
             StdOut.println("No solution found! :(");
         }
     }
 
-    private void showMenu() {
+    public static void showMenu() {
         // TODO: show menu
     }
 
     public static void main(String[] args) {
-        Maze maze = new Maze(1, "src/maze.txt");
-        maze.solve();
+        if (args.length != 2) {
+            Maze.showMenu();
+        }
+        else {
+            Maze maze = new Maze(Integer.parseInt(args[0]), args[1]);
+            maze.solve();
+        }
     }
 }
