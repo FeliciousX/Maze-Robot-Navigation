@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Name:
  * User: FeliciousX
@@ -5,39 +7,23 @@
  * Time: 4:11 PM
  * Execution:
  */
-public class Robot {
-    private Location location;
-    private Node first;
+public abstract class Robot {
+    protected Node current;
+    protected ArrayList<Node> open;
+    protected ArrayList<Node> expanded;
 
-    private class Node {
-        Space space;
-        Node right;
-        Node down;
-        Node left;
-        Node up;
+    protected class Node {
+        int row, col;
+        Node parent;
+
+        Node(int row, int col) {
+            this.row = row;
+            this.col = col;
+            this.parent = null;
+        }
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void moveLeft() {
-        // TODO: move robot left if node available
-    }
-
-    public void moveRight() {
-        // TODO: move robot right if node available
-    }
-
-    public void modeUp() {
-        // TODO: move robot up if node available
-    }
-
-    public void modeDown() {
-        // TODO: move robot down if node available
-    }
-
-    public void expand() {
-        // TODO: expand nodes in 4 directions if available
+    protected Robot(int row, int col) {
+        this.current = new Node(row, col);
     }
 }
