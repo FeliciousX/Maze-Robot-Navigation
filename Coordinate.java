@@ -6,8 +6,8 @@
  * Execution:
  */
 public class Coordinate {
-    int row;
-    int col;
+    private int row;
+    private int col;
 
     public Coordinate(int row, int col) {
         this.row = row;

@@ -19,7 +19,6 @@ public class Maze {
     private boolean wall[][];
     private Robot kaiju;
     private int row, col; // maze dimension
-    private MazeView mazeView;
 
     public Maze(int option, String fileName) {
         this.init(fileName);
@@ -46,8 +45,6 @@ public class Maze {
             default:
                 showMenu();
         }
-
-        this.mazeView = new MazeView();
     }
 
     private void init(String fileName) {
@@ -98,13 +95,18 @@ public class Maze {
         return wall;
     }
 
+    public Robot getKaiju() {
+        return kaiju;
+    }
+
     public void solve() {
         if (this.kaiju.solve()) {
             // TODO: draw solution on screen
             StdOut.println("SOLUTION FOUND!");
             ArrayList<Coordinate> solution = this.kaiju.getSolution();
-
-            mazeView.draw(this);
+            for (Coordinate path : solution) {
+                StdOut.println(path.toString());
+            }
         }
         else {
             StdOut.println("No solution found! :(");

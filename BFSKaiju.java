@@ -22,9 +22,11 @@ public class BFSKaiju extends  Robot {
 
             this.current = temp; // move robot
 
+            this.mazeView.animate(this);
             // check if reach goal!
             if (this.current.position.equal(this.goal)) {
                 this.populateSolution();
+                this.mazeView.solved(this);
                 return true;
             }
             else {

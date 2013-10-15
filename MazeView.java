@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -8,27 +7,29 @@ import java.util.ArrayList;
  * Execution: MazeView $mazeFile$
  */
 public class MazeView {
-    private ArrayList<Coordinate> solution;
+
+    private int C, R;
+    private boolean[][] wall;
 
     public MazeView() {
-        this.solution = new ArrayList<Coordinate>();
         StdDraw.show(0);
     }
 
-    public void draw(Maze maze) {
+    public void draw(Robot kaiju) {
         StdDraw.clear();
         StdDraw.setPenColor(StdDraw.WHITE);
-        int C = maze.getCol();
-        int R = maze.getRow();
+        this.C = kaiju.getCol();
+        this.R = kaiju.getRow();
         StdDraw.setXscale(0, C);
         StdDraw.setYscale(0, R);
         StdDraw.filledRectangle(C / 2.0, R / 2.0, C / 2.0, R / 2.0);
 
-        boolean[][] walls = maze.getWall();
+        wall = kaiju.getWall();
 
+        // draw maze
         for (int row = 0; row < R; row++) {
             for (int col = 0; col < C; col++) {
-                if (walls[row][col]) {
+                if (wall[row][col]) {
                     StdDraw.setPenColor(StdDraw.DARK_GRAY);
                 }
                 else {
@@ -39,24 +40,36 @@ public class MazeView {
             }
         }
 
-        this.solution = maze.getSolution();
-
-        if (this.solution != null) {
-            for (Coordinate path : solution) {
-                StdOut.println("(" + path.getRow() + ", " + path.getCol() + ")");
-                StdDraw.setPenColor(StdDraw.BLUE);
-                StdDraw.filledCircle(path.getCol() + 0.5, R - path.getRow(), 0.25);
-                StdDraw.show(50);
-            }
-        }
+        // draw starting point and goal
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.circle(0 + 0.5, this.R - 1, 0.30);
+        StdDraw.circle(this.C - 1 + 0.5, this.R - (this.R - 2), 0.30);
     }
 
-    public static void main(String[] args) {
-        Maze maze = new Maze(2, args[0]);
+    public void animate(Robot kaiju) {
+        ArrayList<Node> expanded = kaiju.getExpanded();
 
-        MazeView mazeView = new MazeView();
-        StdDraw.show(0);
-        mazeView.draw(maze);
-        StdDraw.show(10);
+        StdDraw.setPenColor(StdDraw.GRAY);
+
+        for (Node flow : expanded) {
+            int r = flow.position.getRow();
+            int c = flow.position.getCol();
+
+            StdDraw.setPenColor(StdDraw.GRAY);
+            StdDraw.filledCircle(c + 0.5, this.R - r, 0.25);
+        }
+        StdDraw.show(50);
+    }
+
+    public void solved(Robot kaiju) {
+        ArrayList<Coordinate> solution = kaiju.getSolution();
+
+        StdDraw.setPenColor(StdDraw.BLUE);
+
+        for (Coordinate path : solution) {
+            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.filledCircle(path.getCol() + 0.5, this.R - path.getRow(), 0.25);
+            StdDraw.show(50);
+        }
     }
 }
