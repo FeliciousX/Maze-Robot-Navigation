@@ -47,6 +47,7 @@ public class MazeView {
     }
 
     public void animate(Robot kaiju) {
+        draw(kaiju);
         ArrayList<Node> expanded = kaiju.getExpanded();
 
         StdDraw.setPenColor(StdDraw.GRAY);
@@ -58,7 +59,7 @@ public class MazeView {
             StdDraw.setPenColor(StdDraw.GRAY);
             StdDraw.filledCircle(c + 0.5, this.R - r, 0.25);
         }
-        StdDraw.show(50);
+        StdDraw.show(100);
     }
 
     public void solved(Robot kaiju) {
@@ -69,7 +70,7 @@ public class MazeView {
         for (Coordinate path : solution) {
             StdDraw.setPenColor(StdDraw.BLUE);
             StdDraw.filledCircle(path.getCol() + 0.5, this.R - path.getRow(), 0.25);
-            StdDraw.show(50);
+            StdDraw.show(0);
         }
     }
 }

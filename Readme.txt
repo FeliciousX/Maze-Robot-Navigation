@@ -1,1 +1,1 @@
-test first
+Run the Maze.java

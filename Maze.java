@@ -101,7 +101,6 @@ public class Maze {
 
     public void solve() {
         if (this.kaiju.solve()) {
-            // TODO: draw solution on screen
             StdOut.println("SOLUTION FOUND!");
             ArrayList<Coordinate> solution = this.kaiju.getSolution();
             for (Coordinate path : solution) {

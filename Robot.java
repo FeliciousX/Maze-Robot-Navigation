@@ -15,19 +15,19 @@ public abstract class Robot {
     protected boolean visited[][];      // robot remembers visited nodes
     protected ArrayList<Coordinate> solution; // solution path in coordinates
     protected Coordinate goal;
+    protected Node start;
     protected MazeView mazeView;
-
 
     protected Robot(int R, int C, boolean wall[][]) {
         this.R = R;
         this.C = C;
         this.wall = wall;
         this.visited = new boolean[this.R][this.C];
-        this.current = new Node(1, 0); // Robot always starts from top left of the maze
+        this.current = null;
+        this.start = new Node(1, 0);  // Robot always starts from top left of the maze
         this.goal = new Coordinate(this.R - 2, this.C - 1);
         this.open = new ArrayList<Node>();
         this.expanded = new ArrayList<Node>();
-        this.open.add(this.current);
         this.mazeView = new MazeView();
 
         for (int i = 0; i < R; i++) {
@@ -36,18 +36,8 @@ public abstract class Robot {
             }
         }
 
-        visited[1][0] = true;
-
         mazeView.draw(this);
         StdDraw.show(1000);
-    }
-
-    protected void populateSolution() {
-        this.solution = new ArrayList<Coordinate>();
-        while(this.current != null) {
-            this.solution.add(0, this.current.position);
-            this.current = this.current.parent;
-        }
     }
 
     public ArrayList<Coordinate> getSolution() {
@@ -71,5 +61,5 @@ public abstract class Robot {
     }
 
     protected abstract boolean solve();
-    protected abstract void expand();
+    protected abstract void populateSolution();
 }

@@ -16,7 +16,7 @@ public class CSKaiju extends Robot {
     }
 
     @Override
-    protected void expand() {
+    protected void populateSolution() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

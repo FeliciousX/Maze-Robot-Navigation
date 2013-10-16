@@ -9,86 +9,72 @@ import java.util.ArrayList;
  * to find the solution path to the goal
  */
 public class DFSKaiju extends Robot {
+    private boolean done;
+
     public DFSKaiju(int row, int col, boolean wall[][]) {
         super(row, col, wall);
+        this.done = false;
+    }
+
+    @Override
+    protected void populateSolution() {
+        this.solution = new ArrayList<Coordinate>();
+        this.current = this.expanded.get(this.expanded.size() - 1);
+        while(this.current != null) {
+            this.solution.add(0, this.current.position);
+            this.current = this.current.parent;
+        }
     }
 
     @Override
     protected boolean solve() {
-        while(! this.open.isEmpty()) {
-            // pops the last node from the ArrayList (LIFO)
-            int size = this.open.size() - 1;
-            Node temp = this.open.get(size);
-            this.open.remove(size);
-
-            this.current = temp; // move robot
-
-            // check if reach goal!
-            if (this.current.position.equal(this.goal)) {
-                this.populateSolution();
-                this.mazeView.solved(this);
-                return true;
-            }
-            else {
-                this.expanded.add(this.current);
-                this.expand();
-
-                this.mazeView.animate(this);
-            }
+        expand();
+        if (done) {
+            this.populateSolution();
+            this.mazeView.solved(this);
         }
-
-        return false;
+        return this.done;
     }
 
-    @Override
     /**
-     * Expands nodes right, down, left, up.
      * Only expands if it's not out of bound,
      * not a wall and not visited.
      * Robot will move up, left, down, right because
-     * it's following LIFO method.
      * If the node can't be expanded anymore, remove node
      */
-    protected void expand() {
-        boolean dead = true;
-        int r = this.current.position.getRow();
-        int c = this.current.position.getCol();
+    private void expand(Node x){
+        Coordinate position = x.position;
+        int r = position.getRow();
+        int c = position.getCol();
+        if (r < 0 || c < 0 || r == this.R || c == this.C) return;
+        if (this.wall[r][c] || this.visited[r][c]) return;
+        if (this.done) return;
 
-        // expand right
-        if (expand(r, c + 1)) { dead = false; }
-        // expand down
-        if (expand(r + 1, c)) { dead = false; }
-        // expand left
-        if (expand(r, c - 1)) { dead = false; }
+        this.visited[r][c] = true;
+        this.expanded.add(x);
+        x.parent = this.current;
+        this.current = x;
+
+        this.mazeView.animate(this);
+        if (position.equal(this.goal)) this.done = true;
+
         // expand up
-        if (expand(r - 1, c)) { dead = false; }
+        this.expand(new Node(r - 1, c));
+        // expand left
+        this.expand(new Node(r, c - 1));
+        // expand down
+        this.expand(new Node(r + 1, c));
+        // expand right
+        this.expand(new Node(r, c + 1));
 
-        if (dead) {
-            this.expanded.remove(this.current);
-        }
+        if (this.done) return;
 
+        this.expanded.remove(this.current);
+        this.current = this.current.parent;
     }
 
-    // only expands if not out of bounds
-    // not a wall
-    // and not visited.
-    // returns true if expanded (not a dead node)
-    private boolean expand(int r, int c) {
-        if (! (r < 0) &&
-            ! (r >= this.R) &&
-            ! (c < 0) &&
-            ! (c >= this.C) &&
-            ! (this.wall[r][c]) &&
-            ! (this.visited[r][c])
-           ) {
-            Node child = new Node(r, c);
-            child.parent = this.current;
-            this.open.add(child);
-            visited[r][c] = true;
 
-            return true;
-        }
-
-        return false;
+    private void expand() {
+        expand(this.start);
     }
 }
