@@ -60,14 +60,14 @@ public class BFSKaiju extends  Robot {
     }
 
     private void expand(int r, int c) {
+        // check if it is out of bound
         if (r < 0 || c < 0 || r == this.R || c == this.C) return;
         // if it's a wall or visited node, return.
         if (this.wall[r][c] || this.visited[r][c]) return;
-        else { // expand
-            Node child = new Node(r, c);
-            child.parent = this.current;
-            this.open.add(child);
-            visited[r][c] = true;
-        }
+
+        Node child = new Node(r, c);
+        child.parent = this.current;
+        this.open.add(child);
+        visited[r][c] = true;
     }
 }

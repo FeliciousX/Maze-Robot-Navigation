@@ -3,7 +3,7 @@
  * Date: 10/15/13
  * Time: 1:50 PM
  *
- * Node for the robot to use.
+ * Node for the robot to use to store coordinates.
  */
 public class Node {
     Coordinate position; // the position of the node

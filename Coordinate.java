@@ -1,9 +1,9 @@
 /**
- * Name: Churchill Lee
- * User: FeliciousX
+ * Name: Churchill Lee, Christine Tay
  * Date: 10/7/13
  * Time: 3:20 PM
- * Execution:
+ *
+ * Coordinate class is to store coordinates easier
  */
 public class Coordinate {
     private int row;
@@ -21,6 +21,19 @@ public class Coordinate {
 
     public int getCol() {
         return col;
+    }
+
+    private void setRow(int row) {
+        this.row = row;
+    }
+
+    private void setCol(int col) {
+        this.col = col;
+    }
+
+    public void set(int row, int col) {
+        setRow(row);
+        setCol(col);
     }
 
     public boolean equal(Coordinate obj) {

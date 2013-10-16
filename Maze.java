@@ -2,11 +2,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Name:
- * User: FeliciousX
+ * Name: Churchill Lee, Christine Tay
  * Date: 10/14/13
  * Time: 4:11 PM
- * Execution:
+ * Execution: java Maze {algorithm type} {File Name}
  */
 public class Maze {
     public static final int BFS = 1;

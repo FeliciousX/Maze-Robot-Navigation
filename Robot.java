@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * Name:Churchill Lee, Christine Tay
  * Date: 10/7/13
  * Time: 4:11 PM
- * Execution:
  */
 public abstract class Robot {
     protected Node current;             // robot's current location

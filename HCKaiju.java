@@ -1,6 +1,5 @@
 /**
- * Name:
- * User: FeliciousX
+ * Name: Churchill Lee, Christine Tay
  * Date: 10/14/13
  * Time: 6:14 PM
  * Execution:

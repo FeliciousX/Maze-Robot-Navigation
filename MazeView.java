@@ -4,7 +4,9 @@ import java.util.ArrayList;
  * Name: Churchill Lee, Christine Tay
  * Date: 10/8/13
  * Time: 10:58 PM
- * Execution: MazeView $mazeFile$
+ *
+ * MazeView class links the maze with the GUI.
+ * Using alg4 library.
  */
 public class MazeView {
 
