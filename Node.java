@@ -18,6 +18,8 @@ public class Node {
 
     public void setParent(Node parent) {
         this.parent = parent;
-        this.depth = this.parent.depth + 1;
+        if (parent != null) {
+            this.depth = this.parent.depth + 1;
+        }
     }
 }

@@ -46,7 +46,6 @@ public class HCKaiju extends Robot {
             for (Node coord : this.open) {
                 int x = coord.position.getRow();
                 int y = coord.position.getCol();
-                StdOut.println("Current: " + nextWeight);
                 if (this.weight[x][y] > nextWeight) {
                     lightest = coord;
                     nextWeight = this.weight[x][y];

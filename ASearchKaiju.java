@@ -4,7 +4,10 @@ import java.util.ArrayList;
  * Name: Churchill Lee, Christine Tay
  * Date: 10/14/13
  * Time: 6:09 PM
- * Execution:
+ *
+ * ASearchKaiju implements A Star Search algorithm to search
+ * for the solution path. It uses the depth and the Straight Line Distance
+ * to calculate the cost.
  */
 public class ASearchKaiju extends Robot {
 

@@ -72,11 +72,8 @@ public class Maze {
             line = line.substring(1, line.indexOf(')'));
             String[] coord = line.split(", ");
 
-//            x = Integer.parseInt(coord[0]) - 1;
-//            y = Integer.parseInt(coord[1]) - 1;
-
-            x = Integer.parseInt(coord[0]);
-            y = Integer.parseInt(coord[1]);
+            x = Integer.parseInt(coord[0]) - 1;
+            y = Integer.parseInt(coord[1]) - 1;
             wall[x][y] = true;
         }
     }
