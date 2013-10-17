@@ -1,7 +1,7 @@
 MADE BY
 -------
 Churchill Lee - 7436904
-Christine Tay - TODO: christine's Student ID
+Christine Tay - 4241452
 
 HOW TO USE
 ----------

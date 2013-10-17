@@ -25,7 +25,7 @@ public class CSKaiju extends Robot {
         this.open.add(this.current);
         this.visited[1][0] = true;
         while(! this.open.isEmpty()) { // while there's still open nodes
-            Node lightest = this.start;
+            Node lightest = this.open.get(0);
 
             // loops through opened nodes and finds the lowest weight to expand
             for (Node coord : this.open) {
