@@ -9,24 +9,27 @@ import java.util.ArrayList;
  * to find the solution path to the goal.
  */
 public class BFSKaiju extends  Robot {
+
     public BFSKaiju(int row, int col, boolean wall[][]) {
         super(row, col, wall);
     }
 
     @Override
     protected boolean solve() {
+
         this.current = this.start;
         this.open.add(this.current);
         while(! this.open.isEmpty()) { // while there's still open nodes
             // pops the first node from the ArrayList (FIFO)
-            Node temp = this.open.get(0);
+            Node nextNode = this.open.get(0);
             this.open.remove(0);
 
-            this.current = temp; // move robot
+            this.current = nextNode; // move robot
 
             this.mazeView.animate(this);
             // check if reach goal!
             if (this.current.position.equal(this.goal)) {
+                this.nodes = this.expanded.size();
                 this.populateSolution();
                 this.mazeView.solved(this);
                 return true;
@@ -36,7 +39,7 @@ public class BFSKaiju extends  Robot {
                 this.expand();
             }
         }
-
+        this.nodes = this.expanded.size();
         return false;
     }
 
@@ -62,12 +65,17 @@ public class BFSKaiju extends  Robot {
     private void expand(int r, int c) {
         // check if it is out of bound
         if (r < 0 || c < 0 || r == this.R || c == this.C) return;
-        // if it's a wall or visited node, return.
-        if (this.wall[r][c] || this.visited[r][c]) return;
+        // if it's a wall, return.
+        if (this.wall[r][c]) return;
+        // if coordinate is actually parent's coordinate, return
+        if (this.current.parent != null &&
+            this.current.parent.position.equal(new Coordinate(r, c))) return;
 
         Node child = new Node(r, c);
-        child.parent = this.current;
+        child.setParent(this.current);
         this.open.add(child);
-        visited[r][c] = true;
+
+        // Output the expanded node
+        StdOut.println("Expand: " + child.position.toString());
     }
 }

@@ -100,11 +100,7 @@ public class Maze {
 
     public void solve() {
         if (this.kaiju.solve()) {
-            StdOut.println("SOLUTION FOUND!");
-            ArrayList<Coordinate> solution = this.kaiju.getSolution();
-            for (Coordinate path : solution) {
-                StdOut.println(path.toString());
-            }
+            this.kaiju.printSolution();
         }
         else {
             StdOut.println("No solution found! :(");

@@ -9,16 +9,18 @@ import java.util.ArrayList;
  * to find the solution path to the goal.
  */
 public class BestKaiju extends Robot {
+    private boolean visited[][];
     private int weight[][];  // stores the weight of each coordinate
 
     public BestKaiju(int row, int col, boolean wall[][]) {
         super(row, col, wall);
+        this.visited = new boolean[row][col];
         this.weight = new int[row][col];
     }
 
     @Override
     protected boolean solve() {
-        this.initWeight();
+        this.init();
 
         this.current = this.start;
         this.open.add(this.current);
@@ -43,6 +45,7 @@ public class BestKaiju extends Robot {
 
             // check if reach goal!
             if (this.current.position.equal(this.goal)) {
+                this.nodes = this.expanded.size();
                 this.populateSolution();
                 this.mazeView.solved(this);
                 return true;
@@ -52,7 +55,7 @@ public class BestKaiju extends Robot {
                 this.expand();
             }
         }
-
+        this.nodes = this.expanded.size();
         return false;
     }
 
@@ -65,10 +68,12 @@ public class BestKaiju extends Robot {
         }
     }
 
-    private void initWeight() {
+    private void init() {
+
         for (int i = 0; i < this.R; i++) {
             for (int j = 0; j < this.C; j++) {
-                this.weight[i][j] = (this.R - i) + (this.C - j);
+                this.visited[i][j] = false;
+                this.weight[i][j] = (this.R - i - 1) + (this.C - j) - 2;
             }
         }
     }
@@ -91,8 +96,11 @@ public class BestKaiju extends Robot {
         if (this.wall[r][c] || this.visited[r][c]) return;
 
         Node child = new Node(r, c);
-        child.parent = this.current;
+        child.setParent(this.current);
         this.open.add(child);
         visited[r][c] = true;
+
+        // Output the expanded node
+        StdOut.println("Expand: " + child.position.toString());
     }
 }

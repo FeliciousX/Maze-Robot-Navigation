@@ -10,9 +10,10 @@ import java.util.ArrayList;
  */
 public class DFSKaiju extends Robot {
     private boolean done;
-
+    private boolean visited[][];
     public DFSKaiju(int row, int col, boolean wall[][]) {
         super(row, col, wall);
+        this.visited = new boolean[row][col];
         this.done = false;
     }
 
@@ -28,7 +29,14 @@ public class DFSKaiju extends Robot {
 
     @Override
     protected boolean solve() {
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                this.visited[i][j] = false;
+            }
+        }
+
         expand();
+        this.nodes = this.expanded.size();
         if (done) {
             this.populateSolution();
             this.mazeView.solved(this);
@@ -52,7 +60,11 @@ public class DFSKaiju extends Robot {
 
         this.visited[r][c] = true;
         this.expanded.add(x);
-        x.parent = this.current;
+
+        // Output the expanded node
+        StdOut.println("Expand: " + position.toString());
+
+        x.setParent(this.current);
         this.current = x;
 
         this.mazeView.animate(this);
@@ -70,9 +82,12 @@ public class DFSKaiju extends Robot {
         if (this.done) return;
 
         this.expanded.remove(this.current);
+
+        // Output the node being removed
+        StdOut.println("Remove: " + this.current.position.toString());
+
         this.current = this.current.parent;
     }
-
 
     private void expand() {
         expand(this.start);

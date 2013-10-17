@@ -61,7 +61,7 @@ public class MazeView {
             StdDraw.setPenColor(StdDraw.GRAY);
             StdDraw.filledCircle(c + 0.5, this.R - r, 0.25);
         }
-        StdDraw.show(100);
+        StdDraw.show(50);
     }
 
     public void solved(Robot kaiju) {
