@@ -72,30 +72,13 @@ public class Maze {
             line = line.substring(1, line.indexOf(')'));
             String[] coord = line.split(", ");
 
-            x = Integer.parseInt(coord[0]) - 1;
-            y = Integer.parseInt(coord[1]) - 1;
+//            x = Integer.parseInt(coord[0]) - 1;
+//            y = Integer.parseInt(coord[1]) - 1;
+
+            x = Integer.parseInt(coord[0]);
+            y = Integer.parseInt(coord[1]);
             wall[x][y] = true;
         }
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public ArrayList<Coordinate> getSolution() {
-        return this.kaiju.getSolution();
-    }
-
-    public boolean[][] getWall() {
-        return wall;
-    }
-
-    public Robot getKaiju() {
-        return kaiju;
     }
 
     public void solve() {
