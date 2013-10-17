@@ -108,7 +108,25 @@ public class Maze {
     }
 
     public static void showMenu() {
-        // TODO: show menu
+        StdOut.println("Usage: java MazeController $searchNumber$ $fileName$");
+        StdOut.println();
+        StdOut.println("Breath First Search = 1");
+        StdOut.println("Example: java MazeController 1 maze.txt");
+        StdOut.println();
+        StdOut.println("Depth First Search = 2");
+        StdOut.println("Example: java MazeController 2 maze.txt");
+        StdOut.println();
+        StdOut.println("Best First Search = 3");
+        StdOut.println("Example: java MazeController 3 maze.txt");
+        StdOut.println();
+        StdOut.println("A* Search = 4");
+        StdOut.println("Example: java MazeController 4 maze.txt");
+        StdOut.println();
+        StdOut.println("Hill Climbing = 5");
+        StdOut.println("Example: java MazeController 5 maze.txt");
+        StdOut.println();
+        StdOut.println("Custom Search = 6");
+        StdOut.println("Example: java MazeController 6 maze.txt");
     }
 
     public static void main(String[] args) {
